@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang="en-AU">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Author" content="Ullas ANTONY">
+		<title>Team Selector | Ullas ANTONY</title>
+		<style type="text/css">
+			table { border: 0; }
+			td { text-alig: center; }
+			input { font-size: 1.2em; margin-left: auto; margin-right: auto; margin-bottom: 2em; margin-top: 2em; cursor: pointer; width: 10.5em; }
+			textarea { border: 0; color: #005; font-family: arial, helvetica, sans-serif; font-size: 1.2em; font-weight: bold; height: 20em; width: 10.5em; scroll: auto; }
+			.col { display: inline; }
+		</style>
+		<script type="text/javascript">
+			var team1Name = "Gryffindor";
+			var team2Name = "Slytherin";
+
+			var adultMales = new Array(
+				"Vijeesh Sathya",
+				"Justin Jacob",
+				"Emmil Philip",
+				"Ullas Antony",
+				"Derrick Sequeira",
+				"Boney George",
+				"Naveen Nair",
+				"Renji Joseph");
+
+			var adultFemales = new Array(
+				"Jeni Vijeesh",
+				"Priya Justin",
+				"Neethu Emmil",
+				"Merin Ullas",
+				"Nifty Derrick",
+				"Asha Boney",
+				"Aswathy Naveen",
+				"Sherin Renji");
+
+			var childMales = new Array(
+				"Vijeesh Kid 1",
+				"Emmil Kid 1",
+				"Derrick Kid 1",
+				"Derrick Kid 2",
+				"Naveen Kid 1",
+				"Renji Kid 1",
+				"Renji Kid 2");
+
+			var childFemales = new Array(
+				"Justin Kid 1",
+				"Ullas Kid 1",
+				"Boney Kid 1");
+
+			var seniorMales = new Array(
+				"Senior Male 1",
+				"Senior Male 2");
+
+			var seniorFemales = new Array(
+				"Senior Female 1",
+				"Senior Female 2",
+				"Senior Female 3");
+
+			function fisherYates(arrItems) {
+				var x = arrItems.length;
+				if (x === 0) return false;
+				while (--x) {
+					var y = Math.floor( Math.random() * (x + 1));
+					var tempx = arrItems[x];
+					var tempy = arrItems[y];
+					arrItems[x] = tempy;
+					arrItems[y] = tempx;
+				}
+			}
+
+			function shuffleAndDisplay(sourceArray, displayControlId) {
+				fisherYates(sourceArray);
+				var team1 = true;
+				var groupOne = new Array();
+				var groupTwo = new Array();
+				var teamOne = new Array();
+				var teamTwo = new Array();
+				for(i=0; i <sourceArray.length; i++)
+				{
+					if(team1)
+					{
+						groupOne.push(sourceArray[i]);
+					}
+					else
+					{
+						groupTwo.push(sourceArray[i]);
+					}
+					team1 = (team1 ? false : true);
+				}
+				var display = team1Name + "\n---------------------\n" + groupOne.join("\n") + "\n\n" + team2Name + "\n---------------------\n" + groupTwo.join("\n");
+				document.getElementById(displayControlId).value = display;
+			}
+
+			var arrTimers = [];
+			function setShuffleTimer(index, arrMember, btnId, btnLabelStart, btnLabelFinish, txtId)
+			{
+				if(btn = document.getElementById(btnId))
+				{
+					if(btn.value === btnLabelStart)
+					{
+						arrTimers[index] = setInterval(function() { shuffleAndDisplay(arrMember, txtId); }, 100);
+						btn.value = btnLabelFinish;
+					}
+					else
+					{
+						clearInterval(arrTimers[index]);
+						btn.value = btnLabelStart;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div class="row">
+				<div class="col">
+					<input id="btnAdultMale" type="button" value="Shuffle Adult Males" onclick="setShuffleTimer(1, adultMales, 'btnAdultMale', 'Shuffle Adult Males', 'Stop Shuffle', 'txtAdultMale');" />
+				</div>
+				<div class="col">
+					<input id="btnAdultFemale" type="button" value="Shuffle Adult Females" onclick="setShuffleTimer(2, adultFemales, 'btnAdultFemale', 'Shuffle Adult Females', 'Stop Shuffle', 'txtAdultFemale');" />
+				</div>
+				<div class="col">
+					<input id="btnChildMale" type="button" value="Shuffle Child Males" onclick="setShuffleTimer(3, childMales, 'btnChildMale', 'Shuffle Child Males', 'Stop Shuffle', 'txtChildMale');" />
+				</div>
+				<div class="col">
+					<input id="btnChildFemale" type="button" value="Shuffle Child Females" onclick="setShuffleTimer(4, childFemales, 'btnChildFemale', 'Shuffle Child Females', 'Stop Shuffle', 'txtChildFemale');" />
+				</div>
+				<div class="col">
+					<input id="btnSeniorMale" type="button" value="Shuffle Senior Males" onclick="setShuffleTimer(5, seniorMales, 'btnSeniorMale', 'Shuffle Senior Males', 'Stop Shuffle', 'txtSeniorMale');" />
+				</div>
+				<div class="col">
+					<input id="btnSeniorFemale" type="button" value="Shuffle Senior Females" onclick="setShuffleTimer(6, seniorFemales, 'btnSeniorFemale', 'Shuffle Senior Females', 'Stop Shuffle', 'txtSeniorFemale');" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<textarea id="txtAdultMale" readonly="readonly"></textarea>
+				</div>
+				<div class="col">
+					<textarea id="txtAdultFemale" readonly="readonly"></textarea>
+				</div>
+				<div class="col">
+					<textarea id="txtChildMale" readonly="readonly"></textarea>
+				</div>
+				<div class="col">
+					<textarea id="txtChildFemale" readonly="readonly"></textarea>
+				</div>
+				<div class="col">
+					<textarea id="txtSeniorMale" readonly="readonly"></textarea>
+				</div>
+				<div class="col">
+					<textarea id="txtSeniorFemale" readonly="readonly"></textarea>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
