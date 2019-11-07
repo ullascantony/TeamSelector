@@ -62,7 +62,7 @@
 				var x = arrItems.length;
 				if (x === 0) return false;
 				while (--x) {
-					var y = Math.floor( Math.random() * (x + 1));
+					var y = Math.floor(Math.random() * (x + 1));
 					var tempx = arrItems[x];
 					var tempy = arrItems[y];
 					arrItems[x] = tempy;
@@ -70,37 +70,35 @@
 				}
 			}
 
-			function shuffleAndDisplay(sourceArray, displayControlId) {
-				fisherYates(sourceArray);
-				var team1 = true;
-				var groupOne = new Array();
-				var groupTwo = new Array();
-				var teamOne = new Array();
-				var teamTwo = new Array();
-				for(i=0; i <sourceArray.length; i++)
+			function shuffleAndDisplay(arrSource, txtId) {
+				fisherYates(arrSource);
+				var group1 = new Array();
+				var group2 = new Array();
+				var isGroup1 = true;
+				for(i=0; i <arrSource.length; i++)
 				{
-					if(team1)
+					if(isGroup1)
 					{
-						groupOne.push(sourceArray[i]);
+						group1.push(arrSource[i]);
 					}
 					else
 					{
-						groupTwo.push(sourceArray[i]);
+						group2.push(arrSource[i]);
 					}
-					team1 = (team1 ? false : true);
+					isGroup1 = (isGroup1 ? false : true);
 				}
-				var display = team1Name + "\n---------------------\n" + groupOne.join("\n") + "\n\n" + team2Name + "\n---------------------\n" + groupTwo.join("\n");
-				document.getElementById(displayControlId).value = display;
+				var display = team1Name + "\n---------------------\n" + group1.join("\n") + "\n\n" + team2Name + "\n---------------------\n" + group2.join("\n");
+				document.getElementById(txtId).value = display;
 			}
 
 			var arrTimers = [];
-			function setShuffleTimer(index, arrMember, btnId, btnLabelStart, btnLabelFinish, txtId)
+			function setShuffleTimer(index, arrSource, btnId, btnLabelStart, btnLabelFinish, txtId)
 			{
 				if(btn = document.getElementById(btnId))
 				{
 					if(btn.value === btnLabelStart)
 					{
-						arrTimers[index] = setInterval(function() { shuffleAndDisplay(arrMember, txtId); }, 100);
+						arrTimers[index] = setInterval(function() { shuffleAndDisplay(arrSource, txtId); }, 100);
 						btn.value = btnLabelFinish;
 					}
 					else
