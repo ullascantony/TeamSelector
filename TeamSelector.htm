@@ -56,15 +56,15 @@
 				"Senior Female 2",
 				"Senior Female 3");
 
-			function fisherYates(arrItems) {
-				var x = arrItems.length;
+			function fisherYates(arrSource) {
+				var x = arrSource.length;
 				if (x === 0) return false;
 				while (--x) {
 					var y = Math.floor(Math.random() * (x + 1));
-					var tempx = arrItems[x];
-					var tempy = arrItems[y];
-					arrItems[x] = tempy;
-					arrItems[y] = tempx;
+					var tempx = arrSource[x];
+					var tempy = arrSource[y];
+					arrSource[x] = tempy;
+					arrSource[y] = tempx;
 				}
 			}
 
